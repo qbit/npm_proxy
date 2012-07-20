@@ -39,7 +39,7 @@ while(<>) {
       $url =~ s/registry\.npmjs\.org/$repo_host/;
 
       print LF "new url: $url\n" if $debug;
-      print $x[0]." 302:$url\n" if $debug;
+      print $x[0]." 302:$url\n";
     }
   } else {
     # pass the url through
