@@ -17,10 +17,24 @@ npm\_proxy runs from squid proxy using the "url_rewrite_program" option.
 
 When it sees a http request for registry.npmjs.org, it fires of a LWP
 request to that URL, if the URL returns 200, squid will process the
-connection normaly.  If the LWP request sees a 404, it will re-write 
+connection normally. If the LWP request sees a 404, it will re-write 
 the URL to point it at an internal couchdb.  This allows for pushing of 
 your private npm packages to your internal repo with out having to have 
 all the dependent packages installed as well.
+
+Usage
+=====
+
+Say we have a package "potatosausage" that only exists in our private
+repo:
+
+````
+npm install potatosausage
+ - > squid sees the package potatosausage doesn't exist on npmjs.org
+ - > squid sends a redirect to internal repo
+ - > npm continues along its happy way
+````
+
 
 Squid3 Config
 =============
