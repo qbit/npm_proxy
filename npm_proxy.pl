@@ -10,7 +10,7 @@ my $debug = 0;
 my $repo_host = "couchserver:5984";
 
 # escape the .'s
-$repo_host =~ s/\./\\./;
+$repo_host =~ s/\./\\./g;
 
 my $ua = LWP::UserAgent->new;
 $ua->agent( "NPM Proxy/0.1 " );
