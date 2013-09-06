@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Npm proxy by qbit</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/qbit/npm_proxy">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/qbit/npm_proxy/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/qbit/npm_proxy/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Npm proxy</h1>
+          <p>Script to allow for dependency free private npm repositories. (NodeJS,Perl)</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/qbit">qbit</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a name="npm_proxy" class="anchor" href="#npm_proxy"><span class="octicon octicon-link"></span></a>npm_proxy</h1>
+
+<p>Have your private npm repo, and diskspace too!</p>
+
+<h1>
+<a name="npm_proxy-background" class="anchor" href="#npm_proxy-background"><span class="octicon octicon-link"></span></a>npm_proxy background</h1>
+
+<p>With the ever expanding disk requirements of the public npm repository
+and the issues with constantly replicating the database (replication
+stopping for no apparent reason, bandwidth limitations.. etc ),
+something needed to be done.</p>
+
+<p>Enter npm_proxy.</p>
+
+<p>npm_proxy runs from squid proxy using the "url_rewrite_program" option. </p>
+
+<p>When it sees a http request for registry.npmjs.org, it fires of a LWP
+request to that URL, if the URL returns 200, squid will process the
+connection normally. If the LWP request sees a 404, it will re-write 
+the URL to point it at an internal couchdb.  This allows for pushing of 
+your private npm packages to your internal repo with out having to have 
+all the dependent packages installed as well.</p>
+
+<h1>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h1>
+
+<p>Say we have a package "potatosausage" that only exists in our private
+repo:</p>
+
+<pre><code>npm install potatosausage
+ - &gt; squid sees the package potatosausage doesn't exist on npmjs.org
+ - &gt; squid sends a redirect to internal repo
+ - &gt; npm continues along its happy way
+</code></pre>
+
+<h1>
+<a name="squid3-config" class="anchor" href="#squid3-config"><span class="octicon octicon-link"></span></a>Squid3 Config</h1>
+
+<pre><code>url_write_program /usr/local/bin/npm_proxy.pl
+</code></pre>
+
+<h1>
+<a name="npmrc" class="anchor" href="#npmrc"><span class="octicon octicon-link"></span></a>NPMRC</h1>
+
+<pre><code>registry = http://registry.npmjs.org
+proxy = http://proxyserver:3128
+</code></pre>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
